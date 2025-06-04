@@ -1,41 +1,61 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+# import pandas as pd
+# import numpy as np
+# import matplotlib.pyplot as plt
 
 from plotting import *
+from approx import *
 
-heights1 = pd.read_csv("data/mont_blanc_hike.txt", sep=None, engine='python').get('altitude')
-heights2 = pd.read_csv("data/teide_hike.txt", sep=None, engine='python').get('altitude')
-# "Tour du Mont Blanc" - The most beautiful hike in Europe through France, Italy and Switzerland.
-# https://www.hikingfex.com/en/post/tour-du-mont-blanc-en
+# from datasource import *
 
-
-step_distance1 = round( 181 / (len(heights1) - 1), 8)
-step_distance2 = round( 30 / (len(heights2) - 1), 8)
-
-# Dodanie kolumny z dystansem w km
-lengths1 = np.array([i * step_distance1 for i in range(len(heights1))])
-lengths2 = np.array([i * step_distance2 for i in range(len(heights2))])
+node_nums = [6, 12, 24, 48] # liczba węzłów interpolacji
 
 
-def plot_empty(label, save=False, show=False):
-    x = lengths1 if label=="1" else lengths2
-    y = heights1 if label=="1" else heights2
-    name = "Tour du Mont Blanc - Heights" if label=="1" else "Pico del Teide volcano tour - Heights"
-
-    plt.figure(figsize=(12, 6))
-    plt.plot(x,y,  label="Height (m)", color='blue', markersize=5)
-    plt.title(name)
-    plt.xlabel("Distance (km)")
-    plt.ylabel("Height (m)")
-    plt.legend()
-    plt.grid()
+# wycieczki
+plot_trail("1", save=True)
+plot_trail("2", save=True)
+plt.show()
 
 
-    if save:
-        plt.savefig('diagrams/empty_' + label + '.png', dpi=300)
+# interpolacja wielomianowa - równomierna
+plot_interpolation("1",1,node_nums[0], save=True)
+plot_interpolation("1",1,node_nums[1], save=True)
+plot_interpolation("1",1,node_nums[2], save=True)
+plot_interpolation("1",1,node_nums[3], save=True)
+plt.show()
 
-    if show:
-        plt.show()
 
-plot_empty("2", save=True, show=True)
+# interpolacja wielomianowa - równomierna
+plot_interpolation("2",1,node_nums[0], save=True)
+plot_interpolation("2",1,node_nums[1], save=True)
+plot_interpolation("2",1,node_nums[2], save=True)
+plot_interpolation("2",1,node_nums[3], save=True)
+plt.show()
+
+# interpolacja wielomianowa - Czebyszew
+plot_interpolation("1",2,node_nums[0], save=True)
+plot_interpolation("1",2,node_nums[1], save=True)
+plot_interpolation("1",2,node_nums[2], save=True)
+plot_interpolation("1",2,node_nums[3], save=True)
+plt.show()
+
+# interpolacja wielomianowa - Czebyszew
+plot_interpolation("2",2,node_nums[0], save=True)
+plot_interpolation("2",2,node_nums[1], save=True)
+plot_interpolation("2",2,node_nums[2], save=True)
+plot_interpolation("2",2,node_nums[3], save=True)
+plt.show()
+
+# interpolacja funkcjami sklejanymi
+plot_interpolation("1",3,node_nums[0], save=True)
+plot_interpolation("1",3,node_nums[1], save=True)
+plot_interpolation("1",3,node_nums[2], save=True)
+plot_interpolation("1",3,node_nums[3], save=True)
+plt.show()
+
+# interpolacja funkcjami sklejanymi
+plot_interpolation("2",3,node_nums[0], save=True)
+plot_interpolation("2",3,node_nums[1], save=True)
+plot_interpolation("2",3,node_nums[2], save=True)
+plot_interpolation("2",3,node_nums[3], save=True)
+plt.show()
+
